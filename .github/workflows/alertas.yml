@@ -1,0 +1,21 @@
+name: Alertas no Discord
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  notificar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enviar mensagem para o Discord
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
+          content: "Opa! Houve uma atualização no repositório do Gabriel!"
+          title: "Novo Push ou PR detectado"
+          description: "O fluxo de CI/CD foi acionado com sucesso."
+          color: 0x00ff00
