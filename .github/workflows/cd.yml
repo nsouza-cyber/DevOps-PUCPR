@@ -1,0 +1,35 @@
+name: CD - Entrega Continua (Build Executavel)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Baixar o codigo do repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar o Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Instalar o PyInstaller
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+
+    - name: Gerar o arquivo Executavel
+      run: |
+        pyinstaller --onefile main.py
+
+    - name: Disponibilizar o Executavel (Artifact)
+      uses: actions/upload-artifact@v4
+      with:
+        name: pdv-executavel
+        path: dist/main
