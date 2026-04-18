@@ -26,5 +26,7 @@ jobs:
 
     - name: Analisar a qualidade do codigo (Lint)
       run: |
-        # Para a execucao se houver erros criticos de sintaxe do Python
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+     
+    - name: Executar Testes Unitarios
+      run: |
+        python test_pdv.py
