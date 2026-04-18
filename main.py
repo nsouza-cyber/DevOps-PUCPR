@@ -6,6 +6,15 @@ def adicionar_item(valor):
     valor_total.set(atual + valor)
     label_total.config(text=f"Total: R$ {valor_total.get():.2f}")
 
+def finalizar_pedido():
+    total = valor_total.get()
+    if total > 0:
+        messagebox.showinfo("Sucesso", f"Pedido finalizado com sucesso!\nValor pago: R$ {total:.2f}")
+        valor_total.set(0.0)
+        label_total.config(text="Total: R$ 0.00")
+    else:
+        messagebox.showwarning("Aviso", "Adicione itens ao pedido antes de finalizar.")
+
 janela = tk.Tk()
 janela.title("Sistema de PDV - Restaurante")
 janela.geometry("350x450")
@@ -31,5 +40,8 @@ btn_refri.pack(pady=5)
 
 label_total = tk.Label(janela, text="Total: R$ 0.00", font=("Arial", 14, "bold"), fg="green", bg="#f0f0f0")
 label_total.pack(pady=20)
+
+btn_finalizar = tk.Button(janela, text="Finalizar Pedido", font=("Arial", 12, "bold"), bg="blue", fg="white", command=finalizar_pedido)
+btn_finalizar.pack(pady=10)
 
 janela.mainloop()
